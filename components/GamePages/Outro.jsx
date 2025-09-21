@@ -5,6 +5,16 @@ import { useEffect, useState } from "react";
 
 const Outro = () => {
 	const [peeps, setPeeps] = useState([]);
+	const [clickSound] = useState(
+		typeof Audio !== "undefined" ? new Audio("/sounds/click.wav") : null
+	);
+
+	const playClick = () => {
+		if (clickSound) {
+			clickSound.currentTime = 0;
+			clickSound.play();
+		}
+	};
 
 	useEffect(() => {
 		const generated = Array.from({ length: 70 }, (_, i) => ({
@@ -99,6 +109,7 @@ const Outro = () => {
 					<motion.a
 						href="/resume.pdf"
 						download="Janey-Resume.pdf"
+						onClick={playClick}
 						initial={{ opacity: 0, y: 10 }}
 						animate={{ opacity: 1, y: 0 }}
 						transition={{ duration: 0.3, delay: 0 }}
@@ -119,6 +130,7 @@ const Outro = () => {
 						href="https://www.linkedin.com/in/yevheniia-simaka/"
 						target="_blank"
 						rel="noopener noreferrer"
+						onClick={playClick}
 						initial={{ opacity: 0, y: 10 }}
 						animate={{ opacity: 1, y: 0 }}
 						transition={{ duration: 0.3, delay: 0 }}

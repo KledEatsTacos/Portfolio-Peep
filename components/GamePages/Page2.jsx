@@ -1,7 +1,7 @@
 "use client";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { dracula } from "react-syntax-highlighter/dist/esm/styles/prism";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 
@@ -10,6 +10,19 @@ const Page2 = ({ goNext }) => {
 	const [feedback, setFeedback] = useState("");
 	const [mood, setMood] = useState("confused");
 	const [viewMode, setViewMode] = useState("code");
+	const clickSoundRef = useRef(null);
+
+	useEffect(() => {
+		clickSoundRef.current = new Audio("/sounds/click.wav");
+		clickSoundRef.current.volume = 0.4;
+	}, []);
+
+	const playClick = () => {
+		if (clickSoundRef.current) {
+			clickSoundRef.current.currentTime = 0;
+			clickSoundRef.current.play();
+		}
+	};
 
 	const codeString = `<html lang="en">
   <body>
@@ -36,6 +49,7 @@ const Page2 = ({ goNext }) => {
 </html>`;
 
 	const handleAnswer = (choice) => {
+		playClick();
 		if (choice === "li") {
 			setFeedback("Great, Now the bug is fixed and I can relax");
 			setShowFix(true);
@@ -69,6 +83,7 @@ const Page2 = ({ goNext }) => {
 					/>
 					<Link
 						href={"/page3"}
+						onClick={playClick}
 						className="z-10 text-[2.25vh] flex items-center justify-center w-full h-full handlee font-semibold tracking-[1px] cursor-pointer"
 					>
 						Continue
@@ -124,7 +139,10 @@ const Page2 = ({ goNext }) => {
 					{showFix && (
 						<div className="flex mb-[3vh]">
 							<button
-								onClick={() => setViewMode("code")}
+								onClick={() => {
+									playClick();
+									setViewMode("code");
+								}}
 								className={`px-[1.25vw] py-[0.75vh] rounded-l-[1vh] border-[1px] cursor-pointer transition ${
 									viewMode === "code"
 										? "bg-neutral-200 text-black border-neutral-400"
@@ -134,7 +152,10 @@ const Page2 = ({ goNext }) => {
 								Code
 							</button>
 							<button
-								onClick={() => setViewMode("view")}
+								onClick={() => {
+									playClick();
+									setViewMode("view");
+								}}
 								className={`px-[1.25vw] py-[0.75vh] rounded-r-[1vh] border-[1px] cursor-pointer transition ${
 									viewMode === "view"
 										? "bg-neutral-200 text-black border-neutral-400"
@@ -231,6 +252,7 @@ const Page2 = ({ goNext }) => {
 
 						<button
 							onClick={() => {
+								playClick();
 								setShowFix(true);
 								setMood("happy");
 							}}

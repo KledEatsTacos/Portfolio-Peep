@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { BsMailbox, BsMailboxFlag } from "react-icons/bs";
 import {
@@ -20,6 +20,16 @@ export default function Page5({ goNext }) {
 		riddles[Math.floor(Math.random() * riddles.length)]
 	);
 
+	// 🔊 sound ref
+	const clickSoundRef = useRef(null);
+
+	const playClickSound = () => {
+		if (clickSoundRef.current) {
+			clickSoundRef.current.currentTime = 0;
+			clickSoundRef.current.play();
+		}
+	};
+
 	const today = new Date().toLocaleDateString("en-US", {
 		year: "numeric",
 		month: "long",
@@ -32,6 +42,7 @@ export default function Page5({ goNext }) {
 			: arr[0];
 
 	const handleAnswer = (choice) => {
+		playClickSound(); // 🔊 play when answering
 		setSelectedAnswer(choice);
 		if (choice === currentRiddle.answer) {
 			setRiddleSolved(true);
@@ -47,6 +58,9 @@ export default function Page5({ goNext }) {
 
 	return (
 		<div className="flex gap-[5vw] items-center justify-center min-h-[90vh] w-[85vw] mx-auto">
+			{/* 🔊 hidden audio element */}
+			<audio ref={clickSoundRef} src="/sounds/click.wav" preload="auto" />
+
 			<div className="flex flex-col max-w-[30vw]">
 				<motion.h2
 					className="text-[4vh] handlee font-extrabold"
@@ -91,6 +105,7 @@ export default function Page5({ goNext }) {
 						transition={{ duration: 0.3, delay: 1.5 }}
 						className="text-[8vh] text-black cursor-pointer"
 						onClick={() => {
+							playClickSound(); // 🔊 play when mailbox clicked
 							if (!riddleSolved) {
 								setMailOpened(true);
 							} else {

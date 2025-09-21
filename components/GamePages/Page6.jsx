@@ -1,7 +1,7 @@
 "use client";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 const projects = [
 	{ id: 1, src: "/projects/old1.png", title: "First Website" },
@@ -41,14 +41,24 @@ const Page6 = () => {
 	const peepImg =
 		tab === "before" ? "/imgs/peep-blank.png" : "/imgs/peep-happy.png";
 
+	const clickSoundRef = useRef(null);
+	const playClickSound = () => {
+		if (clickSoundRef.current) {
+			clickSoundRef.current.currentTime = 0;
+			clickSoundRef.current.play();
+		}
+	};
+
 	return (
 		<div className="flex flex-col items-center justify-center min-h-[90vh] w-[90vw] border-green-300/0 border-2 mx-auto">
+			<audio ref={clickSoundRef} src="/sounds/click.wav" preload="auto" />
+
 			{/* Continue button */}
 			<motion.div
 				initial={{ opacity: 0, y: 10 }}
 				animate={{ opacity: 1, y: 0 }}
 				transition={{ duration: 0.3, delay: 5.75 }}
-				className="absolute cursor-pointer bottom-[10vh] right-[6vw] flex items-center justify-center  w-[10vw] h-[5vh]"
+				className="absolute cursor-pointer bottom-[10vh] right-[6vw] flex items-center justify-center  w-[10vw] h-[5vh] bg-white rounded-[1vh]"
 			>
 				<img
 					src="/imgs/frame1.png"
@@ -89,14 +99,20 @@ const Page6 = () => {
 				<div className="flex flex-col min-w-[17vw]">
 					<div className="flex mb-[2.5vh]">
 						<button
-							onClick={() => setTab("before")}
+							onClick={() => {
+								playClickSound();
+								setTab("before");
+							}}
 							className={`w-full py-[0.5vh] border-b-[1px] cursor-pointer handlee font-semibold border-neutral-600 transition 
                 ${tab === "before" ? "bg-neutral-200" : "bg-transparent"}`}
 						>
 							Before
 						</button>
 						<button
-							onClick={() => setTab("now")}
+							onClick={() => {
+								playClickSound();
+								setTab("now");
+							}}
 							className={`w-full py-[0.5vh] border-b-[1px] cursor-pointer handlee font-semibold border-neutral-600 transition 
                 ${tab === "now" ? "bg-neutral-200" : "bg-transparent"}`}
 						>
@@ -161,7 +177,10 @@ const Page6 = () => {
 								key={project.id}
 								whileTap={{ scale: 0.95 }}
 								transition={{ type: "spring", stiffness: 400, damping: 6 }}
-								onClick={() => setSelectedProject(project.id)}
+								onClick={() => {
+									playClickSound();
+									setSelectedProject(project.id);
+								}}
 								className={`border-2 rounded-[2vh] py-[1.5vh] px-[1vw] cursor-pointer transition 
 									${
 										selectedProject === project.id

@@ -48,14 +48,12 @@ export default function Page1({ goNext }) {
 
 	const activeHat = hats.find((h) => h.id === selectedHat);
 
-	// Load sound once
 	useEffect(() => {
 		const audio = new Audio("/sounds/click.wav");
 		audio.load();
 		setClickSound(audio);
 	}, []);
 
-	// Play sound function
 	const playClick = () => {
 		if (clickSound) {
 			clickSound.currentTime = 0;
@@ -95,7 +93,7 @@ export default function Page1({ goNext }) {
 				animate={{ opacity: 1, y: 0 }}
 				transition={{ duration: 0.3, delay: 5.75 }}
 				className="absolute cursor-pointer bottom-[10vh] right-[6vw] flex items-center justify-center w-[10vw] h-[5vh]"
-				onClick={playClick} // 🔊 play sound on click
+				onClick={playClick}
 			>
 				<img
 					src="/imgs/frame1.png"
@@ -189,7 +187,7 @@ export default function Page1({ goNext }) {
 							whileTap={{ scale: 0.95 }}
 							transition={{ type: "spring", stiffness: 400, damping: 17 }}
 							onClick={() => {
-								playClick(); // 🔊 play sound when hat clicked
+								playClick();
 								setSelectedHat(hat.id);
 							}}
 							className="flex items-center justify-center cursor-pointer"

@@ -18,6 +18,19 @@ export default function Page3({ goNext }) {
 	const [deletingVirus, setDeletingVirus] = useState(false);
 	const [deleteProgress, setDeleteProgress] = useState(0);
 
+	const [clickSound, setClickSound] = useState(null);
+	useEffect(() => {
+		const audio = new Audio("/sounds/click.wav");
+		setClickSound(audio);
+	}, []);
+
+	const playClick = () => {
+		if (clickSound) {
+			clickSound.currentTime = 0;
+			clickSound.play().catch(() => {});
+		}
+	};
+
 	useEffect(() => {
 		setFolders((prev) =>
 			prev.map((f, i) => ({ ...f, virus: i === virusIndex }))
@@ -25,6 +38,7 @@ export default function Page3({ goNext }) {
 	}, [virusIndex]);
 
 	const handleDownload = () => {
+		playClick();
 		setLoading(true);
 		setPeepImg("/imgs/peep-happy.png");
 		setProgress(0);
@@ -46,12 +60,14 @@ export default function Page3({ goNext }) {
 
 	const handleFolderClick = (index) => {
 		if (deletingVirus) return;
+		playClick();
 		setFolders((prev) =>
 			prev.map((f, i) => (i === index ? { ...f, open: !f.open } : f))
 		);
 	};
 
 	const handleDeleteVirus = () => {
+		playClick();
 		setDeletingVirus(true);
 		setDeleteProgress(0);
 
@@ -87,6 +103,7 @@ export default function Page3({ goNext }) {
 					<Link
 						href={"/page4"}
 						className="z-10 text-[2.25vh] flex items-center justify-center w-full h-full handlee font-semibold tracking-[1px]"
+						onClick={playClick}
 					>
 						Continue
 					</Link>

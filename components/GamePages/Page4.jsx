@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 
@@ -87,6 +87,19 @@ export default function Page4({ goNext }) {
 	const [selectedProject, setSelectedProject] = useState(null);
 	const activeProject = projects.find((p) => p.id === selectedProject);
 
+	const clickSoundRef = useRef(null);
+
+	useEffect(() => {
+		clickSoundRef.current = new Audio("/sounds/click.wav");
+	}, []);
+
+	const playClick = () => {
+		if (clickSoundRef.current) {
+			clickSoundRef.current.currentTime = 0;
+			clickSoundRef.current.play();
+		}
+	};
+
 	const TypewriterText = ({ text }) => {
 		const [displayedText, setDisplayedText] = useState("");
 
@@ -110,13 +123,14 @@ export default function Page4({ goNext }) {
 	};
 
 	return (
-		<div className="flex gap-[5vw] items-center justify-center min-h-[90vh] w-[85vw] mx-auto">
+		<div className="flex gap-[5vw] items-center justify-center min-h-[90vh] w-[85vw] mx-auto relative">
 			{/* Continue button */}
 			<motion.div
 				initial={{ opacity: 0, y: 10 }}
 				animate={{ opacity: 1, y: 0 }}
 				transition={{ duration: 0.3, delay: 5.75 }}
-				className="absolute cursor-pointer bottom-[10vh] right-[6vw] flex items-center justify-center  w-[10vw] h-[5vh]"
+				className="absolute cursor-pointer bottom-[10vh] right-[6vw] flex items-center justify-center w-[10vw] h-[5vh] bg-white rounded-[1vh]  z-[55]"
+				onClick={playClick}
 			>
 				<img
 					src="/imgs/frame1.png"
@@ -182,7 +196,10 @@ export default function Page4({ goNext }) {
 							key={project.id}
 							whileTap={{ scale: 0.95 }}
 							transition={{ type: "spring", stiffness: 400, damping: 6 }}
-							onClick={() => setSelectedProject(project.id)}
+							onClick={() => {
+								setSelectedProject(project.id);
+								playClick();
+							}}
 							className={`border-2 rounded-[2vh] py-[1.5vh] px-[1vw] cursor-pointer transition 
 								${
 									selectedProject === project.id
@@ -221,6 +238,7 @@ export default function Page4({ goNext }) {
 								{activeProject.links.slice(0, 2).map((link, i) => (
 									<div
 										key={i}
+										onClick={playClick}
 										className="relative cursor-pointer hover:scale-95 transition w-[10vw] h-[5vh] flex items-center justify-center"
 									>
 										<img
@@ -243,6 +261,7 @@ export default function Page4({ goNext }) {
 								{activeProject.links.slice(2, 4).map((link, i) => (
 									<div
 										key={i}
+										onClick={playClick}
 										className="relative cursor-pointer hover:scale-95 transition w-[10vw] h-[5vh] flex items-center justify-center"
 									>
 										<img
