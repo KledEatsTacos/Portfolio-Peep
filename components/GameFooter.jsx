@@ -25,8 +25,7 @@ const GameFooter = () => {
 	return (
 		<div className="fixed bottom-0 left-0 w-[100vw] bg-neutral-800 py-[1.5vh] px-[2vw] flex items-center justify-between z-[999]">
 			<button className="text-[2vh] flex items-center justify-center gap-[0.5vw] text-white">
-				Made with <FaHeart className="text-[2.25vh] text-red-500" /> by
-				Yevheniia
+				Made with <FaHeart className="text-[2.5vh] text-red-400" /> by Yevheniia
 			</button>
 
 			<div className="flex gap-[0.5vw]">

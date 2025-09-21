@@ -102,9 +102,12 @@ const Intro = () => {
 							className="w-[10vw] h-[5vh] absolute top-0 left-0 z-0 object-cover opacity-50"
 							alt=""
 						/>
-						<span className="z-10 text-[2.25vh] text-neutral-500 flex items-center justify-center w-full h-full handlee font-semibold tracking-[1px]">
+						<Link
+							href={"/quick-tour"}
+							className="z-10 text-[2.25vh] text-neutral-500 flex items-center justify-center w-full h-full handlee font-semibold tracking-[1px]"
+						>
 							Quick Tour
-						</span>
+						</Link>
 					</motion.button>
 					<motion.div
 						initial={{ opacity: 0, y: 10 }}

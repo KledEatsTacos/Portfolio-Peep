@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 
@@ -44,7 +44,26 @@ const hats = [
 
 export default function Page1({ goNext }) {
 	const [selectedHat, setSelectedHat] = useState(null);
+	const [clickSound, setClickSound] = useState(null);
+
 	const activeHat = hats.find((h) => h.id === selectedHat);
+
+	// Load sound once
+	useEffect(() => {
+		const audio = new Audio("/sounds/click.wav");
+		audio.load();
+		setClickSound(audio);
+	}, []);
+
+	// Play sound function
+	const playClick = () => {
+		if (clickSound) {
+			clickSound.currentTime = 0;
+			clickSound.play().catch((err) => {
+				console.error("Audio play failed:", err);
+			});
+		}
+	};
 
 	const TypewriterText = ({ text }) => {
 		const [displayedText, setDisplayedText] = useState("");
@@ -69,12 +88,14 @@ export default function Page1({ goNext }) {
 	};
 
 	return (
-		<div className="flex gap-[7.5vw] items-center justify-center min-h-[90vh] w-[85vw] border-green-300/0 border-2 mx-auto">
+		<div className="flex gap-[7.5vw] items-center justify-center min-h-[90vh] w-[85vw] mx-auto">
+			{/* Continue button */}
 			<motion.div
 				initial={{ opacity: 0, y: 10 }}
 				animate={{ opacity: 1, y: 0 }}
 				transition={{ duration: 0.3, delay: 5.75 }}
-				className="absolute cursor-pointer bottom-[10vh] right-[6vw] flex items-center justify-center  w-[10vw] h-[5vh]"
+				className="absolute cursor-pointer bottom-[10vh] right-[6vw] flex items-center justify-center w-[10vw] h-[5vh]"
+				onClick={playClick} // 🔊 play sound on click
 			>
 				<img
 					src="/imgs/frame1.png"
@@ -89,7 +110,8 @@ export default function Page1({ goNext }) {
 				</Link>
 			</motion.div>
 
-			<div className="flex flex-col border-2 border-amber-300/0 max-w-[32.5vw]">
+			{/* Left side */}
+			<div className="flex flex-col max-w-[32.5vw]">
 				<motion.h2
 					className="text-[4vh] handlee font-extrabold"
 					initial={{ opacity: 0, y: 10 }}
@@ -144,7 +166,9 @@ export default function Page1({ goNext }) {
 					<img src="/imgs/peep.png" className="w-[17vw]" alt="Character" />
 				</div>
 			</div>
-			<div className="w-[30vw] border-0 border-b-blue-300/0 pb-[3vh]">
+
+			{/* Right side */}
+			<div className="w-[30vw] pb-[3vh]">
 				<motion.h2
 					initial={{ opacity: 0, y: 10 }}
 					animate={{ opacity: 1, y: 0 }}
@@ -157,25 +181,28 @@ export default function Page1({ goNext }) {
 					initial={{ opacity: 0, y: 10 }}
 					animate={{ opacity: 1, y: 0 }}
 					transition={{ duration: 0.3, delay: 1.5 }}
-					className="grid grid-cols-3 gap-x-[1.5vw] w-fit gap-y-[1.75vh] mx-auto mt-8 transition"
+					className="grid grid-cols-3 gap-x-[1.5vw] w-fit gap-y-[1.75vh] mx-auto mt-8"
 				>
 					{hats.map((hat) => (
 						<motion.div
 							key={hat.id}
 							whileTap={{ scale: 0.95 }}
 							transition={{ type: "spring", stiffness: 400, damping: 17 }}
-							onClick={() => setSelectedHat(hat.id)}
+							onClick={() => {
+								playClick(); // 🔊 play sound when hat clicked
+								setSelectedHat(hat.id);
+							}}
 							className="flex items-center justify-center cursor-pointer"
 						>
 							<img
 								src={hat.src}
 								alt={hat.title}
 								className={`w-[7vw] aspect-[1] rounded-lg transition p-[1vh] 
-        ${
-					selectedHat === hat.id
-						? "border-2 border-neutral-600 shadow-md"
-						: "border-2 border-neutral-200"
-				}`}
+									${
+										selectedHat === hat.id
+											? "border-2 border-neutral-600 shadow-md"
+											: "border-2 border-neutral-200"
+									}`}
 							/>
 						</motion.div>
 					))}
