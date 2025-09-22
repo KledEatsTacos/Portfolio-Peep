@@ -381,9 +381,9 @@ export default function QuickTour() {
 										className="border-2 rounded-[2vh] py-[1.5vh] px-[1vw] cursor-pointer transition border-neutral-300 hover:border-neutral-400"
 									>
 										<div
-											className={`w-full aspect-[6/3] border-neutral-400 border-2 flex items-center justify-center mb-[1vh] rounded-[2.5vh] ${project.color}`}
+											className={`w-full aspect-[6/3] border-neutral-400 border-2 flex items-center justify-center mb-[1vh] rounded-[2.5vh] ${"bg-neutral-800"}`}
 										>
-											<h2 className="closer text-[7vh] text-black tracking-[-1px]">
+											<h2 className="closer text-[7vh] text-white tracking-[-1px]">
 												{project.title}
 											</h2>
 										</div>
@@ -407,7 +407,7 @@ export default function QuickTour() {
 									onClick={() => {
 										playClick();
 									}}
-									className="rounded-[1.75vh] cursor-pointer w-full border-2 border-neutral-300 flex items-center justify-center handlee text-[2vh] font-semibold  hover:border-neutral-400 transition"
+									className="rounded-[1.75vh] cursor-pointer w-full border-2 border-neutral-900 bg-neutral-800 text-white flex items-center justify-center handlee text-[2vh] font-semibold  hover:border-neutral-400 transition"
 								>
 									<Link
 										href={"https://www.linkedin.com/in/yevheniia-simaka/"}
@@ -422,7 +422,7 @@ export default function QuickTour() {
 									onClick={() => {
 										playClick();
 									}}
-									className="rounded-[1.75vh] cursor-pointer w-full border-2 border-neutral-300 flex items-center justify-center handlee text-[2vh] font-semibold  hover:border-neutral-400 transition"
+									className="rounded-[1.75vh] cursor-pointer w-full border-2 border-neutral-900 flex items-center bg-neutral-800 text-white justify-center handlee text-[2vh] font-semibold  hover:border-neutral-400 transition"
 								>
 									<Link
 										href={"https://github.com/jane-does-coding"}
@@ -437,7 +437,7 @@ export default function QuickTour() {
 									onClick={() => {
 										playClick();
 									}}
-									className="rounded-[1.75vh] cursor-pointer w-full border-2 border-neutral-300 flex items-center justify-center handlee text-[2vh] font-semibold  hover:border-neutral-400 transition"
+									className="rounded-[1.75vh] cursor-pointer w-full border-2 border-neutral-900 flex items-center bg-neutral-800 text-white justify-center handlee text-[2vh] font-semibold  hover:border-neutral-400 transition"
 								>
 									<Link href={"/resume.pdf"} className="py-[1vh] px-[1vw]">
 										Resume
