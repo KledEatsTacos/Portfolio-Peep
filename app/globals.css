@@ -34,3 +34,14 @@
 	animation-timing-function: linear;
 	animation-iteration-count: infinite;
 }
+
+@font-face {
+	font-family: "Closer";
+	src: url("/fonts/closer-font/closer.otf") format("opentype");
+	font-weight: normal;
+	font-style: normal;
+}
+
+.closer {
+	font-family: "Closer", sans-serif;
+}

@@ -20,7 +20,6 @@ export default function Page5({ goNext }) {
 		riddles[Math.floor(Math.random() * riddles.length)]
 	);
 
-	// 🔊 sound ref
 	const clickSoundRef = useRef(null);
 
 	const playClickSound = () => {
@@ -42,7 +41,7 @@ export default function Page5({ goNext }) {
 			: arr[0];
 
 	const handleAnswer = (choice) => {
-		playClickSound(); // 🔊 play when answering
+		playClickSound();
 		setSelectedAnswer(choice);
 		if (choice === currentRiddle.answer) {
 			setRiddleSolved(true);

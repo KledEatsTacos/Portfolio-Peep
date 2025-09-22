@@ -10,17 +10,29 @@ const Page2 = ({ goNext }) => {
 	const [feedback, setFeedback] = useState("");
 	const [mood, setMood] = useState("confused");
 	const [viewMode, setViewMode] = useState("code");
+
 	const clickSoundRef = useRef(null);
+	const errorSoundRef = useRef(null);
 
 	useEffect(() => {
 		clickSoundRef.current = new Audio("/sounds/click.wav");
 		clickSoundRef.current.volume = 0.4;
+
+		errorSoundRef.current = new Audio("/sounds/error.wav");
+		errorSoundRef.current.volume = 0.5;
 	}, []);
 
 	const playClick = () => {
 		if (clickSoundRef.current) {
 			clickSoundRef.current.currentTime = 0;
 			clickSoundRef.current.play();
+		}
+	};
+
+	const playError = () => {
+		if (errorSoundRef.current) {
+			errorSoundRef.current.currentTime = 0;
+			errorSoundRef.current.play();
 		}
 	};
 
@@ -49,12 +61,13 @@ const Page2 = ({ goNext }) => {
 </html>`;
 
 	const handleAnswer = (choice) => {
-		playClick();
 		if (choice === "li") {
+			playClick();
 			setFeedback("Great, Now the bug is fixed and I can relax");
 			setShowFix(true);
 			setMood("happy");
 		} else {
+			playError();
 			setFeedback("Ugh, that didn’t fix the bug...");
 			setMood("upset");
 		}
