@@ -3,7 +3,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { FaHeart, FaLinkedinIn } from "react-icons/fa6";
 import { HiOutlineMail } from "react-icons/hi";
-import { FaGithubAlt } from "react-icons/fa";
+import { FaGithubAlt, FaVolumeMute } from "react-icons/fa";
 
 const pages = [
 	{ path: "/", label: "Intro" },
@@ -28,7 +28,6 @@ const GameFooter = () => {
 				Made with <FaHeart className="text-[2.5vh] text-red-400" /> by Yevheniia
 			</button>
 
-			{/* Step navigation */}
 			<div className="flex gap-[0.5vw]">
 				{pages.map((page, i) => (
 					<button
@@ -49,20 +48,11 @@ const GameFooter = () => {
 				))}
 			</div>
 
-			{/* Social Links */}
 			<div className="flex gap-[1vw]">
-				<Link
-					href="https://github.com/jane-does-coding"
-					target="_blank"
-					rel="noopener noreferrer"
-				>
+				<Link href="https://github.com/jane-does-coding" target="_blank">
 					<FaGithubAlt className="text-white text-[3.25vh]" />
 				</Link>
-				<Link
-					href="https://www.linkedin.com/in/yevheniia-simaka/"
-					target="_blank"
-					rel="noopener noreferrer"
-				>
+				<Link href="https://linkedin.com/yevheniia-simaka" target="_blank">
 					<FaLinkedinIn className="text-white text-[3.25vh]" />
 				</Link>
 				<Link href="mailto:yevheniiasimaka@gmail.com">
