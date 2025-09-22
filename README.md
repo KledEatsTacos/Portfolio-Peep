@@ -12,3 +12,9 @@ what I'm like, but also how I choose to present it.
 
 This website isn't just pixels on the page telling you random facts about me.
 This website is what represents me through my passion in web dev
+
+Something I've struggles with is an error I ran into, which turned out to happen because I imported pages 1-5 in one file, and it was too much code for one thing.
+
+# Tech Stack
+
+I built this with Next.js, Javascript, Tailwind, Framer Motion, and CSS

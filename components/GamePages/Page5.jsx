@@ -104,7 +104,7 @@ export default function Page5({ goNext }) {
 						transition={{ duration: 0.3, delay: 1.5 }}
 						className="text-[8vh] text-black cursor-pointer"
 						onClick={() => {
-							playClickSound(); // 🔊 play when mailbox clicked
+							playClickSound();
 							if (!riddleSolved) {
 								setMailOpened(true);
 							} else {

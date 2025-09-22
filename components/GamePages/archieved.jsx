@@ -37,7 +37,6 @@ export default function Archieved({ goNext }) {
 		);
 	};
 
-	// Pick 10 skills
 	const skills = [
 		{ name: "HTML", icon: <FaHtml5 className="text-orange-500" /> },
 		{ name: "CSS", icon: <FaCss3Alt className="text-blue-500" /> },
